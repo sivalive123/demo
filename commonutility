@@ -1,0 +1,73 @@
+
+String convertElementToString(WebElement element) {
+
+		String elementInString = element.toString();
+
+		return elementInString;
+	}
+
+
+	protected void clickOnElement(WebElement element) {
+		sleepForSeconds(1);
+		showElementLocation(element);
+		element.click();
+		sleepForSeconds(1);
+		System.out.println("Clicked on the element " + convertElementToString(element));
+	}
+  
+  
+  
+	void showElementLocation(WebElement webElement) {
+		String jsSyyle = "'3px solid red'";
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		try {
+			js.executeScript("arguments[0].style.border=" + jsSyyle, webElement);
+		}catch (JavascriptException e){
+			System.out.println("Java scription Exception "+ convertElementToString(webElement));
+		}
+	}
+  
+  
+  	protected String getText(WebElement element) {
+		showElementLocation(element);
+
+		String value = element.getText();
+
+		System.out.println("Values present inside the element " + " are " + value);
+		return value;
+	}
+
+
+
+	protected String getAttribute(WebElement element, String attribute) {
+		showElementLocation(element);
+		String value = element.getAttribute(attribute);
+
+		System.out.println(attribute + " Atrribute value of element " + " is " + value);
+		return value;
+	}
+
+	protected void setValue(WebElement element, String value) {
+		showElementLocation(element);
+
+		element.sendKeys(value);
+
+		System.out.println(value + " has been entered in " + convertElementToString(element));
+	}
+
+	protected void sendKeysUsingJS(WebElement element, String value) {
+		showElementLocation(element);
+
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].value='" + value + "';", element);
+		System.out.println(value + " has been entered in " + convertElementToString(element));
+	}
+
+	protected void clearField(WebElement element) {
+		showElementLocation(element);
+
+		element.click();
+		element.clear();
+
+		System.out.println("Cleared the vaules in ");
+	}
